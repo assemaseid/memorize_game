@@ -26,7 +26,6 @@ struct ContentView: View {
         }
         .foregroundStyle(.tint)
     }
-    
 }
 
 struct CardView: View {
@@ -49,7 +48,6 @@ struct CardView: View {
         }
     }
 }
-
 
 #Preview {
     ContentView()

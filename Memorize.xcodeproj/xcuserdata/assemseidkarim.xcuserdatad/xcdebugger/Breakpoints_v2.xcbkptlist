@@ -14,8 +14,8 @@
             filePath = "Memorize/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
             landmarkName = "cards"
             landmarkType = "24">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "Memorize/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
             landmarkName = "cards"
             landmarkType = "24">
          </BreakpointContent>
@@ -46,10 +46,74 @@
             filePath = "Memorize/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
-            landmarkName = "ContentView"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "cards"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1EEF98B2-C792-4FBE-882F-280BF3B7CF4F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Memorize/MemoryGameModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "MemoryGame"
             landmarkType = "14">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DA57979E-54D4-4F29-8F39-BE1354B30C35"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Memorize/EmojiMemoryGameView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "isDealt(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DA57979E-54D4-4F29-8F39-BE1354B30C35 - dba9dfb6262922a6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Memorize.EmojiMemoryGameView.isDealt(Memorize.MemoryGame&lt;Swift.String&gt;.Card) -&gt; Swift.Bool"
+                  moduleName = "Memorize"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/assemseidkarim/Desktop/Memorize/Memorize/EmojiMemoryGameView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "67"
+                  endingLineNumber = "67"
+                  offsetFromSymbolStart = "304">
+               </Location>
+               <Location
+                  uuid = "DA57979E-54D4-4F29-8F39-BE1354B30C35 - dba9dfb6262922a6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Memorize.EmojiMemoryGameView.isDealt(Memorize.MemoryGame&lt;Swift.String&gt;.Card) -&gt; Swift.Bool"
+                  moduleName = "Memorize"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/assemseidkarim/Desktop/Memorize/Memorize/EmojiMemoryGameView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "67"
+                  endingLineNumber = "67"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  EmojiMemoryGameView.swift
 //  Memorize
 //
 //  Created by Assem Seidkarim on 24.02.2024.
@@ -8,49 +8,117 @@
 import SwiftUI
 
 struct EmojiMemoryGameView: View {
-    var viewModel: EmojiMemoryGame = EmojiMemoryGame()
-        
+    typealias Card = MemoryGame<String>.Card
+    @ObservedObject var viewModel: EmojiMemoryGame
+    private let aspectRatio: CGFloat = 2/3
+    private let spacing: CGFloat = 4
+    private let dealAnimation: Animation = .easeInOut(duration: 1)
+    private let dealInterval: TimeInterval = 0.15
+    private let deckWidth: CGFloat = 50
+
     var body: some View {
-        ScrollView{
+        VStack {
             cards
-        }.padding()
-            
+                .foregroundColor(viewModel.color)
+            HStack {
+                score
+                Spacer ()
+                deck.foregroundColor(viewModel.color)
+                Spacer()
+                shuffle
+            }
+            .font(.largeTitle)
+        }
+        .padding()
     }
     
+    private var score: some View {
+        Text ("Score: \(viewModel.score)")
+            .animation(nil)
+    }
     
-    var cards: some View {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 85))]) {
-            ForEach(viewModel.cards.indices, id: \.self){ index in
-                CardView(card: viewModel.cards[index])
-                        .aspectRatio(2/3, contentMode: .fit)
+    private var shuffle: some View {
+        Button("Shuffle") {
+            withAnimation {
+                viewModel.shuffle()
             }
         }
-        .foregroundStyle(.tint)
     }
-}
-
-struct CardView: View {
-    var card: MemoryGame<String>.Card
     
-    var body: some View {
+    
+    private var cards: some View {
+        AspectVGrid(viewModel.cards, aspectRatio: aspectRatio) { card in
+            if isDealt(card) {
+                CardView(card)
+                    .matchedGeometryEffect(id: card.id, in: dealiingNamespace)
+                    .transition(.asymmetric(insertion: .identity, removal: .identity))
+                    .padding(spacing)
+                    .overlay(FlyingNumber(number: scoreChange(causedBy: card)))
+                    .zIndex (scoreChange(causedBy: card) != 0 ? 100 : 0)
+                
+                    .onTapGesture {
+                        choose(card)
+                    }
+                    
+            }
+        }
+    }
+    
+    @State private var dealt = Set<Card.ID>()
+    
+    private func isDealt(_ card: Card) -> Bool {
+        dealt.contains (card.id)
+    }
+    
+    private var undealtCards: [Card] {
+        viewModel.cards.filter { !isDealt($0) }
+    }
+    
+    @Namespace private var dealiingNamespace
+
+    private var deck: some View {
         ZStack {
-            let base = RoundedRectangle(cornerRadius: 10.0)
-            Group {
-                base.fill(.white)
-                base.strokeBorder(lineWidth: 5)
-                Text(card.content).font(.largeTitle)
+            ForEach(undealtCards) { card in
+                CardView(card)
+                    .matchedGeometryEffect(id: card.id, in: dealiingNamespace)
+                    .transition(.asymmetric(insertion: .identity, removal: .identity))
+
             }
-                .opacity(card.isFaceUp ? 1 : 0)
-            base.fill()
-                .opacity(card.isFaceUp ? 0 : 1)
-            
         }
+        .frame(width: deckWidth, height: deckWidth / aspectRatio)
+        .onTapGesture {
+            deal()
+        }
+    }
+    private func deal() {
+        var delay: TimeInterval = 0
+        for card in viewModel.cards {
+            withAnimation(.easeInOut(duration: 0.5).delay(delay)) {
+                _ = dealt.insert (card.id)
+            }
+            delay += dealInterval
+        }
+    }
+    
+    private func choose(_ card: Card) {
+                withAnimation{
+            let scoreBeforeChoosing = viewModel.score
+            viewModel.choose(card)
+            let scoreChange = viewModel.score - scoreBeforeChoosing
+            lastScoreChange = (scoreChange, causedByCardId: card.id)
+        }
+    }
+    @State private var lastScoreChange = (0, causedByCardId: "")
+    
+    private func scoreChange(causedBy card: Card) -> Int{
+        let (amount, id) = lastScoreChange
+        return card.id == id ? amount : 0
     }
 }
 
+    struct EmojiMemoryGameView_Previews: PreviewProvider {
+        static var previews: some View {
+            EmojiMemoryGameView(viewModel: EmojiMemoryGame())
+        }
+    }
 
-struct EmojiMemoryGameView_Previews: PreviewProvider {
-    static var previews: some View {
-        EmojiMemoryGameView(viewModel: EmojiMemoryGame())
-}
-}

@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    let emojis: [String] = ["🦁","🐶","🦋","🦀","🦕","🐘", "🐏","🦚","🫎"]
-    
+struct EmojiMemoryGameView: View {
+    var viewModel: EmojiMemoryGame = EmojiMemoryGame()
+        
     var body: some View {
         ScrollView{
             cards
@@ -17,10 +17,11 @@ struct ContentView: View {
             
     }
     
+    
     var cards: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 85))]) {
-            ForEach(emojis.indices, id: \.self){ index in
-                CardView(content: emojis[index])
+            ForEach(viewModel.cards.indices, id: \.self){ index in
+                CardView(card: viewModel.cards[index])
                         .aspectRatio(2/3, contentMode: .fit)
             }
         }
@@ -29,26 +30,27 @@ struct ContentView: View {
 }
 
 struct CardView: View {
-    @State var isFaceUp = true
-    let content:String
+    var card: MemoryGame<String>.Card
+    
     var body: some View {
         ZStack {
             let base = RoundedRectangle(cornerRadius: 10.0)
             Group {
                 base.fill(.white)
                 base.strokeBorder(lineWidth: 5)
-                Text(content).font(.largeTitle)
+                Text(card.content).font(.largeTitle)
             }
-            .opacity(isFaceUp ? 1 : 0)
-            base.fill().opacity(isFaceUp ? 0 : 1)
+                .opacity(card.isFaceUp ? 1 : 0)
+            base.fill()
+                .opacity(card.isFaceUp ? 0 : 1)
             
-        }
-        .onTapGesture {
-            isFaceUp.toggle()
         }
     }
 }
 
-#Preview {
-    ContentView()
+
+struct EmojiMemoryGameView_Previews: PreviewProvider {
+    static var previews: some View {
+        EmojiMemoryGameView(viewModel: EmojiMemoryGame())
+}
 }
